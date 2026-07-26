@@ -35,4 +35,4 @@ def upload_file():
     return f"File uploaded successfully! Size: {file_size} bytes", 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

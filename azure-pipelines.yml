@@ -1,0 +1,22 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'flask-file-upload'
+  registryName: 'flaskappacrusama'
+
+steps:
+  - script: |
+      docker build -t $(registryName).azurecr.io/$(imageName):latest .
+    displayName: 'Build Docker image'
+
+  - task: Docker@2
+    displayName: 'Push image to Azure Container Registry'
+    inputs:
+      containerRegistry: 'ACR-Service-Connection'
+      repository: '$(imageName)'
+      command: 'push'
+      tags: 'latest'
